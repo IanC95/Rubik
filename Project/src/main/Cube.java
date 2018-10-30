@@ -16,6 +16,20 @@ public class Cube {
 		faces[4] = FaceGen("O");
 		faces[5] = FaceGen("R");
 	}
+
+	public Cube(char[] cube) {
+		faces = new Face[6];
+		Tile[][] FaceArray;
+		for(int k = 0; k < 6; k++) {
+			FaceArray = new Tile[3][3];
+			for(int i = 0; i < 3; i++) {
+				for (int j = 0; j < 3; j++){
+					FaceArray[i][j] = new Tile(String.valueOf(cube[(k*9)+(i*3)+j]));
+				}
+			}
+			faces[k] = new Face(FaceArray);
+		}
+	}
 	
 	public Face FaceGen(String Colour) {
 		Tile[][] FaceArray = new Tile[3][3];
@@ -48,7 +62,9 @@ public class Cube {
 	public void RotateFace(int face, int times) {
 		Tile[][] currentFace;
 		Tile[][] newFace;
-		
+		if(times <0) {
+			times = 3;
+		}
 		for(int k = 0; k<times; k++) {
 			currentFace = faces[face].getTiles();
 			newFace = new Tile[currentFace[0].length][currentFace.length];
@@ -70,7 +86,7 @@ public class Cube {
 			times = 1;
 		}else {
 			direction = -1;
-			times = 3;
+			times = -1;
 		}
 		Tile[] Current = new Tile[12];
 		for(int i = 0; i < 4; i++) {
@@ -88,7 +104,7 @@ public class Cube {
 		if(row == 0) {
 			RotateFace(4, times);
 		}else if(row == 2) {
-			RotateFace(5, times);
+			RotateFace(5, -times);
 		}
 	}
 
@@ -98,13 +114,13 @@ public class Cube {
 		int direction, times;
 		int l, m;
 		if(Clockwise == true) {
-			direction = -1;
-			times = 1;
+			direction = 1;
+			times = -1;
 			l = 0;
 			m = 1;
 		}else {
-			direction = 1;
-			times = 3;
+			direction = -1;
+			times = 1;
 			l = 0;
 			m = 3;
 		}
@@ -139,7 +155,7 @@ public class Cube {
 		if(column == 0) {
 			RotateFace(0, times);
 		}else if(column == 2) {
-			RotateFace(2, times);
+			RotateFace(2, -times);
 		}
 		
 	}
@@ -153,7 +169,7 @@ public class Cube {
 			times = 1;
 		}else {
 			direction = 1;
-			times = 3;
+			times = -1;
 		}
 		
 		
@@ -193,7 +209,7 @@ public class Cube {
 		if(column == 0) {
 			RotateFace(1, times);
 		}else if(column == 2) {
-			RotateFace(3, times);
+			RotateFace(3, -times);
 		}
 	}
 	
