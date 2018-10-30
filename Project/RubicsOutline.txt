@@ -1,0 +1,41 @@
+RubicsCubeSolver{
+  Cube<>[] : UnsolvedCubes
+  Cube : SolvedCube
+  Done : boolean
+
+  CloneCubes(Int)//For each cube create a cube for each possible permutation. (Use clone()) 9 clones, 9 total
+  MakeMove(UnsolvedCubes)
+  isSolved(UnsolvedCubes)
+
+  AutoSolve(Cube) //Clone, MakeMove, isSolved, rinse repeat until Done == True
+}
+
+Cube object{
+  Parent : Cube
+  Child : Cube
+  Move : MOVE
+  Face[] : Faces //6
+  numMoves : int
+  Solved : boolean
+
+  Cube(Parent, Face[], numMoves)
+  Cube(Face[])
+  returnCube() //Return 12 x 9 ASCII Array
+  VerticalTurn(ActiveFace, column, UpOrDown) //Only 6 options?
+  HorizontalTurn(row, LeftOrRight) //Only 3 options?
+  isSolved() //Foreach Faces, call Faces.isSolved(), if True, solved = True
+}
+
+Face Object{
+  Solved : boolean
+  Tile[] : Tiles //9
+
+  Face(Tile[])
+  isSolved() //foreach Tiles, if Colour = Tiles[0].Colour, Solved = True
+}
+
+Tile Object{
+  Colour : COLOUR
+
+  Tile(Colour)
+}
